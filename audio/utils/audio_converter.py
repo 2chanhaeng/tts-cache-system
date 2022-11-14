@@ -8,7 +8,7 @@ def convert_text_to_speech(
     text: str,
     lang: str = "ko",
     slow: bool = False,
-    __path: str = "audio/storage/",
+    path: str = "audio/storage/",
 ) -> list[str]:
     """
     Split text by sentence and return file paths.
@@ -18,7 +18,7 @@ def convert_text_to_speech(
             text=sentence,
             lang=lang,
             slow=slow,
-            __path=__path,
+            path=path,
         )
         for sentence in separate_text_by_sentence(text)
     ]
@@ -28,7 +28,7 @@ def sentence_to_speech_fp(
     text: str,
     lang: str = "ko",
     slow: bool = False,
-    __path: str = "audio/storage/",
+    path: str = "audio/storage/",
 ) -> str:
     """
     If speach file already exists, return file name.
@@ -41,7 +41,7 @@ def sentence_to_speech_fp(
         + ("_slow" if slow else "")  # add "_slow" if slow sound
         + ".mp3"  # add file extension
     )
-    file_path = Path(__path) / file_name[:6]
+    file_path = Path(path) / file_name[:6]
     Path.mkdir(Path(file_path), exist_ok=True)  # create path if not exist
     file_path /= file_name[6:]
     if file_path.exists():
@@ -51,7 +51,7 @@ def sentence_to_speech_fp(
     return file_path
 
 
-def separate_text_by_sentence(text: str) -> list:
+def separate_text_by_sentence(text: str) -> list[str]:
     """
     Separate text by ".", "!", "?" and return list of sentences.
     """
