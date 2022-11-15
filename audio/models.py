@@ -7,6 +7,15 @@ class Project(models.Model):
     update_time = models.DateTimeField(auto_now=True)
 
 
+class Sentence(models.Model):
+    """
+    Sentence model
+    text: str = text of the sentence
+    """
+
+    text = models.TextField(unique=True)
+
+
 class Audio(models.Model):
     index = models.IntegerField()
     text = models.TextField(unique=True)
