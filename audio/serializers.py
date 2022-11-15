@@ -23,3 +23,19 @@ class ProjectCreateSerializer(serializers.ModelSerializer):
                 sentence=sentence,
             )
         return project
+
+
+class AudioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Audio
+        fields = ("id", "text", "speed", "index")
+
+    def update(self, instance, validated_data):
+        if instance.text != validated_data.get("text"):
+            sentence, _ = Sentence.objects.get_or_create(
+                text=validated_data.get("text")
+            )
+            instance.sentences = sentence
+        instance.speed = validated_data.get("speed")
+        instance.save()
+        return instance
