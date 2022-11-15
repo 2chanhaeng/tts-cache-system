@@ -17,8 +17,20 @@ class Sentence(models.Model):
 
 
 class Audio(models.Model):
+    """
+    Audio model
+    index: int = index of the sentence in Project
+    text: str = text of the sentence
+    speed: float = speed of the sentence
+    project_id: Project = id of the project
+    update_time: time of the last update
+    """
+
     index = models.IntegerField()
-    text = models.TextField(unique=True)
+    sentence = models.ForeignKey(Sentence, on_delete=models.CASCADE)
     speed = models.FloatField(default=1.0)
     project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
     update_time = models.DateTimeField(auto_now=True)
+
+    def text(self) -> str:
+        return self.sentence.text
