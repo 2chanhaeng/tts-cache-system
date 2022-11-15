@@ -2,6 +2,12 @@ from django.db import models
 
 
 class Project(models.Model):
+    """
+    Project model
+    project_title: str = title of the project
+    create_time: datetime = time of the creation
+    update_time: datetime = time of the last update
+    """
     project_title = models.CharField(max_length=100)
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
